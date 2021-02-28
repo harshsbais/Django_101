@@ -20,6 +20,7 @@ from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 from todo import views
 from todo.auth import CustomAuthToken
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 
 router = routers.DefaultRouter()
@@ -28,5 +29,7 @@ router.register(r'todos', views.TodoView, 'todo')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path("gettoken/", CustomAuthToken.as_view())
+    path("gettoken/", TokenObtainPairView.as_view(), name="token_pair"),
+    path("refreshtoken/", TokenRefreshView.as_view(), name="refresh_token"),
+    path("verifytoken/", TokenVerifyView.as_view(), name="verify_token")
 ]
