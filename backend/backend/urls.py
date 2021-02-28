@@ -19,6 +19,7 @@ from django.urls import path, include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 from todo import views
+from todo.auth import CustomAuthToken
 
 
 router = routers.DefaultRouter()
@@ -27,5 +28,5 @@ router.register(r'todos', views.TodoView, 'todo')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path("gettoken/", obtain_auth_token)
+    path("gettoken/", CustomAuthToken.as_view())
 ]
